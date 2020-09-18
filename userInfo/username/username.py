@@ -1,7 +1,7 @@
 """
 functions that work with usernameInfo.txt
 """
-import sys
+
 
 
 # work in progress
@@ -16,7 +16,7 @@ def getEmail(key) -> str:
         # get the email from the email file
         pass
     else:
-        sys.exit("Access Denied")
+        pass
     return ""
 
 
