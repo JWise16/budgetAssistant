@@ -1,0 +1,7 @@
+work/workInfo.txt
+username/usernameInfo.txt
+securityID/securityIDInfo.txt
+savings/savingsInfo.txt
+purchase/purchaseInfo.txt
+password/passwordInfo.txt
+email/emailInfo.txt
