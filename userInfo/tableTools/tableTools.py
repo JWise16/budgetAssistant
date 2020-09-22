@@ -22,10 +22,10 @@ def editEntry(id, attribute, newData) -> None:
 
 
 # work in progress
-def showHistory() -> None:
+def showEntryHistory() -> None:
     pass
 
 
 # work in progress
-def editHistory() -> None:
+def editEntryHistory() -> None:
     pass

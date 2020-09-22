@@ -1,30 +1,59 @@
+from os import path
+from typing import Optional
+from userInfo.singleValue.singleValue import SingleValue
+
 """
 functions that work with usernameInfo.txt
 """
 
 
-
-# work in progress
-def getEmail(key) -> str:
+def createUsername(securityID: str, filePath: str = 'username/usernameInfo.txt') -> object:
     """
-    This function checks the users access key and returns the email of the user
-    :param key: users access key
-    :return: email of the user
+    creates a SingleValue object for a username from an exiting username
+    data file
+    :param securityID: users ID
+    :param filePath: path to the username data file
+    :return: SingleValue object for a username or None if a data file is not found
     """
-    header = 1234
-    if key == header:
-        # get the email from the email file
-        pass
+    if path.exists(filePath):
+        return SingleValue(securityID, filePath)
     else:
-        pass
-    return ""
+        print('Data File Does not exist for username... Please call createNewUsername()')
+        return None
 
 
-# work in progress
-def changeEmail(key, newEmail) -> None:
-    pass
+def createNewUsername(securityID: str, username: str, filePath: str = 'username/usernameInfo.txt') -> Optional[
+    SingleValue]:
+    """
+    creates a SingleVale object for a username and creates a new
+    username data file
+    :param securityID: users ID
+    :param username: the users username
+    :param filePath:
+    :return: SingleValue object for a username or call createUsername() if a data file is already found
+    """
+    if not path.exists(filePath):
+        return SingleValue(securityID, filePath, 'username', username)
+    else:
+        print('Data file already exists for  username... calling create username()')
+        createUsername(securityID, filePath)
 
 
-# work in progress
-def removeEmail(key) -> None:
-    pass
+def getUsername(securityID: str, singlevalue: SingleValue) -> str:
+    """
+    :param securityID: users ID
+    :param singleValue: SingleValue for the username
+    :return: the username
+    """
+    return singlevalue.data(securityID)
+
+
+def changeUsername(securityID: str, newUsername: str, singlevalue: SingleValue) -> None:
+    """
+    changes the  username
+    :param securityID: users ID
+    :param newUsername: the new username
+    :param singlevalue: SingleValue for the username
+    :return: None
+    """
+    singlevalue.changeInfo(securityID, 'data', newUsername)
