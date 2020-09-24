@@ -1,43 +1,36 @@
-from userInfo.singleValue.singleTools.singleTools import terminateProgram
 from os import remove
 
 
 class SingleValue:
 
-    def __init__(self, securityID, path, storage, data):
+    def __init__(self, securityID: str, path: str, storage: str = None, data: str = None):
         """
-        This constructor is called if a new data file needs to be created for the SingleValue... calls main constructor
-        after making new data file
-        :param securityID: user ID
-        :param path: path to the new data file
-        :param storage: type of data SingleValue will hold
-        :param data: the data that SingleValue will hold
+        Creates new SingleValue object from a existing data file or creates a new data file
+        :param securityID:
+        :param path:
+        :param storage:
+        :param data:
         """
         self._info = None
-        self.newDataFile(securityID, path, storage, data)
-        self.__init__(securityID, path)
+        if storage is not None and data is not None:
+            self.newDataFile(securityID, path, storage, data)
 
-    def __init__(self, securityID, path):
-        """
-        This constructor is always called. Loads information into the self._info tree
-        :param securityID: user ID
-        :param path: path to the datafile
-        """
         with open(path, 'r') as f:
-            contents = f.readlines()
-            if contents[0] == securityID:
-                if len(contents) == 3:
-                    self._info = {'id': str(securityID),
-                                  'path': str(path),
-                                  'type': str(contents[1]),
-                                  'data': str(contents[2])}
+            id = str.rstrip(f.readline())
+            type = str.rstrip(f.readline())
+            dat = str.rstrip(f.readline())
+            self._info = {'id': id,
+                          'path': str(path),
+                          'type': type,
+                          'data': dat}
 
     def path(self, securityID: str) -> str:
         """
         :param securityID: users ID
         :return: path to data file
         """
-        self.idCheck(securityID)
+        if self._info['type'] != 'id':
+            self.idCheck(securityID)
         return self._info['path']
 
     def type(self, securityID: str) -> str:
@@ -45,7 +38,8 @@ class SingleValue:
         :param securityID:  users ID
         :return: what type of data SingleValue holds
         """
-        self.idCheck(securityID)
+        if self._info['type'] != 'id':
+            self.idCheck(securityID)
         return self._info['type']
 
     def data(self, securityID: str) -> str:
@@ -53,7 +47,8 @@ class SingleValue:
         :param securityID: users ID
         :return: the data SingleValue holds
         """
-        self.idCheck(securityID)
+        if self._info['type'] != 'id':
+            self.idCheck(securityID)
         return self._info['data']
 
     def changeInfo(self, securityID, tag, newData) -> None:
@@ -64,7 +59,8 @@ class SingleValue:
         :param newData: the new data to be inserted in the tag
         :return:
         """
-        self.idCheck(securityID)
+        if self._info['type'] != 'id':
+            self.idCheck(securityID)
         if self._info[tag] is not None:
             self._info[tag] = newData
             print('{tag} was changed to {data}'.format(tag=tag, data=newData))
@@ -81,8 +77,9 @@ class SingleValue:
         if securityID == self._info['id']:
             return True
         else:
-            terminateProgram('Access Denied')
+            self.terminateProgram('Access Denied')
 
+    # TODO: make working method to create data files
     def newDataFile(self, securityID, path, storage, data) -> None:
         """
         This creates a new data file for the single value
@@ -92,16 +89,35 @@ class SingleValue:
         :param data: the data the SingleValue holds
         :return: None
         """
-        with open(path, "w+") as f:
-            f.writelines([str(securityID), str(storage), str(data)])
+        with open(path, 'w+') as f:
+            f.writelines(str(securityID))
+            f.writelines("\n" + str(storage))
+            f.writelines("\n" + str(data))
             f.close()
 
-    def removeDataFile(self, securityID) -> None:
+    def removeDataFile(self, securityID, path) -> None:
         """
         removes the data file
         :param securityID: users ID
         :param path: path to data file
         :return: None
         """
-        self.idCheck(securityID)
+        if self._info['type'] != 'id':
+            self.idCheck(securityID)
         remove(self._info['path'])
+
+    def terminateProgram(self, errorMessage=None) -> None:
+        """
+        This function is called whenever the program needs to terminate
+        :param errorMessage: optional error message to be displayed
+        :return: No return type
+        """
+        if errorMessage == 'Access Denied':
+            print("Access has been denied... terminating now")
+            raise SystemExit(0)
+        elif errorMessage is not None:
+            print("An Error has occurred in the program\nError Message:", errorMessage + '\nTerminating Now...')
+            raise SystemExit(0)
+        else:
+            print("An Error has occurred in the program\nError Message:", errorMessage + '\nTerminating Now...')
+            raise SystemExit(0)

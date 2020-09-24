@@ -7,7 +7,7 @@ functions that work with usernameInfo.txt
 """
 
 
-def createUsername(securityID: str, filePath: str = 'username/usernameInfo.txt') -> object:
+def createUsername(securityID: str, filePath: str = 'userInfo/singleValue/infoData/usernameInfo.txt') -> object:
     """
     creates a SingleValue object for a username from an exiting username
     data file
@@ -22,7 +22,8 @@ def createUsername(securityID: str, filePath: str = 'username/usernameInfo.txt')
         return None
 
 
-def createNewUsername(securityID: str, username: str, filePath: str = 'username/usernameInfo.txt') -> Optional[
+def createNewUsername(securityID: str, username: str,
+                      filePath: str = 'userInfo/singleValue/infoData/usernameInfo.txt') -> Optional[
     SingleValue]:
     """
     creates a SingleVale object for a username and creates a new

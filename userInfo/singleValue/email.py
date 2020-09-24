@@ -7,7 +7,7 @@ functions that work with emailInfo.txt
 """
 
 
-def createEmail(securityID: str, filePath: str = 'email/emailInfo.txt') -> object:
+def createEmail(securityID: str, filePath: str = 'userInfo/singleValue/infoData/emailInfo.txt') -> object:
     """
     creates a SingleValue object for a email from an exiting email
     data file
@@ -22,7 +22,8 @@ def createEmail(securityID: str, filePath: str = 'email/emailInfo.txt') -> objec
         return None
 
 
-def createNewEmail(securityID: str, email: str, filePath: str = 'email/emailInfo.txt') -> Optional[SingleValue]:
+def createNewEmail(securityID: str, email: str, filePath: str = 'userInfo/singleValue/infoData/emailInfo.txt') -> \
+Optional[SingleValue]:
     """
     creates a SingleVale object for a username and creates a new
     username data file

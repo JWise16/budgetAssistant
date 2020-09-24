@@ -43,20 +43,3 @@ def changeInfo(securityID, singlevalue: SingleValue, tag, newData) -> None:
     :return: None
     """
     singlevalue.changeInfo(securityID, tag, newData)
-
-
-def terminateProgram(errorMessage=None) -> None:
-    """
-    This function is called whenever the program needs to terminate
-    :param errorMessage: optional error message to be displayed
-    :return: No return type
-    """
-    if errorMessage is 'Access Denied':
-        print("Access has been denied... terminating now")
-        raise SystemExit(0)
-    elif errorMessage is not None:
-        print("An Error has occurred in the program\nError Message:", errorMessage + '\nTerminating Now...')
-        raise SystemExit(0)
-    else:
-        print("An Error has occurred in the program\nError Message:", errorMessage + '\nTerminating Now...')
-        raise SystemExit(0)

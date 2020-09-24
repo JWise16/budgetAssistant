@@ -7,7 +7,8 @@ functions that work with passwordInfo.txt
 """
 
 
-def createPassword(securityID: str, filePath: str = 'password/passwordInfo.txt') -> object:
+def createPassword(securityID: str, filePath: str = 'userInfo/singleValue/infoData/passwordInfo.txt') -> Optional[
+    SingleValue]:
     """
     creates a SingleValue object for a password from an exiting password
     data file
@@ -22,27 +23,28 @@ def createPassword(securityID: str, filePath: str = 'password/passwordInfo.txt')
         return None
 
 
-def createNewPassword(securityID: str, password: str, filePath: str = 'password/passwordInfo.txt') -> Optional[
+def createNewPassword(securityID: str, password: str,
+                      filePath: str = 'userInfo/singleValue/infoData/passwordInfo.txt') -> Optional[
     SingleValue]:
     """
     creates a SingleVale object for a password and creates a new
     password data file
     :param securityID: users ID
-    :param email: the users password
+    :param password: the users password
     :param filePath: path to the password information file
     :return: SingleValue object for a password or call createPassword() if a data file is already found
     """
     if not path.exists(filePath):
-        return SingleValue(securityID, filePath, 'password', email)
+        return SingleValue(securityID, filePath, 'password', password)
     else:
-        print('Data file already exists for email... calling createEmail()')
-        createEmail(securityID, filePath)
+        print('Data file already exists for email... calling createPassword()')
+        createPassword(securityID, filePath)
 
 
 def getPassword(securityID: str, singlevalue: SingleValue) -> str:
     """
     :param securityID: users ID
-    :param singleValue: SingleValue for the password
+    :param singlevalue: SingleValue for the password
     :return: the password
     """
     return singlevalue.data(securityID)
