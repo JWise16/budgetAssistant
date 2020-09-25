@@ -1,4 +1,4 @@
-from userInfo.singleValue.securityID import createNewID
+from userInfo.securityID import createNewID
 
 
 def testID():
