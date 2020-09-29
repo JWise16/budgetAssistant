@@ -1,14 +1,16 @@
+from userInfo.tableValue.tableValue import TableValue
+
 """
 functions that work with savingsInfo.txt
 """
 
 
-def main() -> None:
-    pass
+def createSavings(securityID, path) -> None:
+    TableValue(securityID, path)
 
 
-if __name__ == "__main__":
-    main()
+def createNewSavings(securityID, path) -> None:
+    TableValue(securityID, path, 'savings', True, "Deosit_ammount", "Reason")
 
 
 # work in progress

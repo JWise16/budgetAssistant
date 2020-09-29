@@ -1,4 +1,5 @@
 from os import remove
+import csv
 
 
 class SingleValue:
@@ -13,16 +14,21 @@ class SingleValue:
         """
         self._info = None
         if storage is not None and data is not None:
-            self.newDataFile(securityID, path, storage, data)
+            self._newDataFile(securityID, path, storage, data)
 
         with open(path, 'r') as f:
-            id = str.rstrip(f.readline())
-            type = str.rstrip(f.readline())
-            dat = str.rstrip(f.readline())
+            reader = csv.reader(f)
+            id = str.rstrip(next(reader))
+            type = str.rstrip(next(reader))
+            if type == 'purchase' or type == 'work' or type == 'savings':
+                dat = ''
+            else:
+                dat = str.rstrip(next(reader))
             self._info = {'id': id,
                           'path': str(path),
-                          'type': type,
+                          'type': str(type),
                           'data': dat}
+            f.close()
 
     def path(self, securityID: str) -> str:
         """
@@ -42,7 +48,7 @@ class SingleValue:
             self.idCheck(securityID)
         return self._info['type']
 
-    def data(self, securityID: str) -> str:
+    def data(self, securityID: str) -> object:
         """
         :param securityID: users ID
         :return: the data SingleValue holds
@@ -80,7 +86,7 @@ class SingleValue:
             self.terminateProgram('Access Denied')
 
     # TODO: make working method to create data files
-    def newDataFile(self, securityID, path, storage, data) -> None:
+    def _newDataFile(self, securityID, path, storage, data) -> None:
         """
         This creates a new data file for the single value
         :param securityID: users securityID
@@ -89,13 +95,15 @@ class SingleValue:
         :param data: the data the SingleValue holds
         :return: None
         """
-        with open(path, 'w+') as f:
-            f.writelines(str(securityID))
-            f.writelines("\n" + str(storage))
-            f.writelines("\n" + str(data))
+        with open(path, 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow([securityID])
+            writer.writerow([storage])
+            writer.writerow([data])
             f.close()
 
-    def removeDataFile(self, securityID, path) -> None:
+    # TODO: create working file remove method
+    def _removeDataFile(self, securityID, path) -> None:
         """
         removes the data file
         :param securityID: users ID

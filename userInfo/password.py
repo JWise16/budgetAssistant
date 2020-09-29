@@ -47,7 +47,7 @@ def getPassword(securityID: str, singlevalue: SingleValue) -> str:
     :param singlevalue: SingleValue for the password
     :return: the password
     """
-    return singlevalue.data(securityID)
+    return str(singlevalue.data(securityID))
 
 
 def changePassword(securityID: str, newPassword: str, singlevalue: SingleValue) -> None:
