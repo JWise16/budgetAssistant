@@ -18,16 +18,13 @@ class SingleValue:
 
         with open(path, 'r') as f:
             reader = csv.reader(f)
-            id = str.rstrip(next(reader))
-            type = str.rstrip(next(reader))
-            if type == 'purchase' or type == 'work' or type == 'savings':
+            id = str.rstrip(next(reader)[0])
+            storage = str.rstrip(next(reader)[0])
+            if storage == 'purchase' or storage == 'work' or storage == 'savings':
                 dat = ''
             else:
-                dat = str.rstrip(next(reader))
-            self._info = {'id': id,
-                          'path': str(path),
-                          'type': str(type),
-                          'data': dat}
+                dat = str.rstrip(next(reader)[0])
+            self._info = dict(id=id, path=str(path), type=str(storage), data=dat)
             f.close()
 
     def path(self, securityID: str) -> str:
@@ -85,7 +82,7 @@ class SingleValue:
         else:
             self.terminateProgram('Access Denied')
 
-    # TODO: make working method to create data files
+
     def _newDataFile(self, securityID, path, storage, data) -> None:
         """
         This creates a new data file for the single value
@@ -102,8 +99,7 @@ class SingleValue:
             writer.writerow([data])
             f.close()
 
-    # TODO: create working file remove method
-    def _removeDataFile(self, securityID, path) -> None:
+    def _removeDataFile(self, securityID) -> None:
         """
         removes the data file
         :param securityID: users ID

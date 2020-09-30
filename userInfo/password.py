@@ -7,7 +7,7 @@ functions that work with passwordInfo.txt
 """
 
 
-def createPassword(securityID: str, filePath: str = 'userInfo/singleValue/infoData/passwordInfo.txt') -> Optional[
+def createPassword(securityID: str, filePath: str = 'userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleValue object for a password from an exiting password
@@ -24,7 +24,7 @@ def createPassword(securityID: str, filePath: str = 'userInfo/singleValue/infoDa
 
 
 def createNewPassword(securityID: str, password: str,
-                      filePath: str = 'userInfo/singleValue/infoData/passwordInfo.txt') -> Optional[
+                      filePath: str = 'userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleVale object for a password and creates a new
@@ -37,7 +37,7 @@ def createNewPassword(securityID: str, password: str,
     if not path.exists(filePath):
         return SingleValue(securityID, filePath, 'password', password)
     else:
-        print('Data file already exists for email... calling createPassword()')
+        print('Data file already exists for password... calling createPassword()')
         createPassword(securityID, filePath)
 
 

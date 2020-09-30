@@ -3,11 +3,11 @@ from typing import Optional
 from userInfo.singleValue.singleValue import SingleValue
 
 """
-functions that work with emailInfo.txt
+functions that work with emailInfo.csv
 """
 
 
-def createEmail(securityID: str, filePath: str = 'userInfo/singleValue/infoData/emailInfo.txt') -> object:
+def createEmail(securityID: str, filePath: str = 'userInfo/singleValue/infoData/emailInfo.csv') -> object:
     """
     creates a SingleValue object for a email from an exiting email
     data file
@@ -22,8 +22,8 @@ def createEmail(securityID: str, filePath: str = 'userInfo/singleValue/infoData/
         return None
 
 
-def createNewEmail(securityID: str, email: str, filePath: str = 'userInfo/singleValue/infoData/emailInfo.txt') -> \
-Optional[SingleValue]:
+def createNewEmail(securityID: str, email: str, filePath: str = 'userInfo/singleValue/infoData/emailInfo.csv') -> \
+        Optional[SingleValue]:
     """
     creates a SingleVale object for a username and creates a new
     username data file
@@ -42,10 +42,10 @@ Optional[SingleValue]:
 def getEmail(securityID: str, singlevalue: SingleValue) -> str:
     """
     :param securityID: users ID
-    :param singleValue: SingleValue for the username
-    :return: the username
+    :param singleValue: SingleValue for the email
+    :return: the email
     """
-    return singlevalue.data(securityID)
+    return str(singlevalue.data(securityID))
 
 
 def changeEmail(securityID: str, newEmail: str, singlevalue: SingleValue) -> None:

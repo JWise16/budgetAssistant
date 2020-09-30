@@ -4,22 +4,22 @@ from typing import Optional
 from userInfo.singleValue.singleValue import SingleValue
 
 
-def createID(securityID: str, filePath: str = 'infoData/passwordInfo.txt') -> Optional[SingleValue]:
+def createID(securityID: str, filePath: str = 'userInfo/singleValue/infoData/securityIDInfo.csv') -> Optional[
+    SingleValue]:
     """
-    creates a SingleValue object for a password from an exiting password
-    data file
+    creates a SingleValue object for a ID from an exiting ID data file
     :param securityID: users ID
-    :param filePath: path to the password data file
-    :return: SingleValue object for a password or None if a data file is not found
+    :param filePath: path to the ID data file
+    :return: SingleValue object for a ID or None if a data file is not found
     """
     if path.exists(filePath):
         return SingleValue(securityID, filePath)
     else:
-        print('Data File Does not exist for password... Please call createNewPassword()')
+        print('Data File Does not exist for the ID... Please call createNewID()')
         return None
 
 
-def createNewID(filePath: str = 'infoData/securityIDInfo.txt') -> Optional[SingleValue]:
+def createNewID(filePath: str = 'infoData/securityIDInfo.csv') -> Optional[SingleValue]:
     """
     creates a SingleValue object for a ID and a new securityID and securityIDInfo
     data file
@@ -39,4 +39,4 @@ def getID(singlevalue: SingleValue) -> str:
     :param singlevalue: SingleValue for the id
     :return: the users id
     """
-    return singlevalue.data('securityID')
+    return str(singlevalue.data('securityID'))
