@@ -17,10 +17,11 @@ class TableValue(SingleValue):
         :param col_two_name: (use if new_data_table == True) Second column name for variable data
         """
         if new_data_table:
-            self.newDataTable(securityID, path, storage, col_one_name, col_two_name)
-        super().__init__(securityID, path, storage, "tableData")
+            self._newDataTable(securityID, path, storage, col_one_name, col_two_name)
+        super().__init__(securityID, path)
+        self._loadDataTable(path)
 
-    def addEntry(self, securityID: str, date: str, val_one: object, val_two: object, tag: str = "N/A") -> None:
+    def _addEntry(self, securityID: str, date: str, val_one: object, val_two: object, tag: str = "N/A", ) -> None:
         """
         Adds an entry (a date, 2 variable data, and a tag) onto the data table
         :param securityID: users security ID
@@ -30,9 +31,8 @@ class TableValue(SingleValue):
         :param tag: tag to group entry with other entries
         :return: None
         """
+        col_names = self._info['col_names']
         self.idCheck(securityID)
-        col_names = self._info['data'].keys()
-
         # add date
         self._info['data'][col_names[0]].append(date)
         # add first stored value
@@ -42,7 +42,7 @@ class TableValue(SingleValue):
         # add tag
         self._info['data'][col_names[3]].append(tag)
 
-    def removeEntry(self, securityID: str, entryIndex: int) -> None:
+    def _removeEntry(self, securityID: str, entryIndex: int) -> None:
         """
         removes an entry from the data table based off of the index of the entry
         :param securityID: users security ID
@@ -54,7 +54,7 @@ class TableValue(SingleValue):
         for column in col_names:
             del self._info['data'][column][entryIndex]
 
-    def editEntry(self, securityID: str, entryIndex: int, column: str, newData: object) -> None:
+    def _editEntry(self, securityID: str, entryIndex: int, column: str, newData: object) -> None:
         """
         change a entry on the table based off of column and index
         :param securityID: users security ID
@@ -66,8 +66,8 @@ class TableValue(SingleValue):
         self.idCheck(securityID)
         self._info['data'][column][entryIndex] = newData
 
-    def newDataTable(self, securityID: str, path: str, storage_type: str, column_name_one: str,
-                     column_name_two: str) -> None:
+    def _newDataTable(self, securityID: str, path: str, storage_type: str, column_name_one: str,
+                      column_name_two: str) -> None:
         """
         creates a new data table file
         format:
@@ -88,7 +88,8 @@ class TableValue(SingleValue):
             writer.writerow(['Date', column_name_one, column_name_two, 'Tag'])
             f.close()
 
-    def writeDataTable(self, securityID: str, path: str, type: str, column_name_one: str, column_name_two: str) -> None:
+    def _writeDataTable(self, securityID: str, path: str, type: str, column_name_one: str,
+                        column_name_two: str) -> None:
         """
         writes a data table to a file, can be used to "update" a existing data table file
         :param securityID: users security ID
@@ -98,12 +99,12 @@ class TableValue(SingleValue):
         :param column_name_two: name of the second variable data column
         :return: none
         """
-        col_names = self._info['data'].keys()
+        col_names = self._info['col_names']
         with open(path, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([securityID])
             writer.writerow([type])
-            writer.writerow(['Date', column_name_one, column_name_two, 'Tag'])
+            writer.writerow(col_names)
 
             dates = self._info['data'][col_names[0]]
             col_one = self._info['data'][col_names[1]]
@@ -111,11 +112,11 @@ class TableValue(SingleValue):
             tags = self._info['data'][col_names[3]]
 
             num_entries = len(self._info['data'][col_names[0]])
-            for index in range(0, num_entries - 1):
-                writer.writerow([dates[index], col_one[index], col_two[index]])
+            for index in range(0, num_entries):
+                writer.writerow([dates[index], col_one[index], col_two[index], tags[index]])
             f.close()
 
-    def loadDataTable(self, path) -> None:
+    def _loadDataTable(self, path) -> None:
         """
         loads a data table into self._info from a data table file
         :param path: file path to the data table
@@ -123,11 +124,18 @@ class TableValue(SingleValue):
         """
         with open(path, 'r') as f:
             reader = csv.reader(f)
-            self._info['id'] = next(reader)
-            self._info['type'] = next(reader)
-            col_names = next(reader)
+            self._info['id'] = next(reader)[0]
+            self._info['type'] = next(reader)[0]
+            self._info['col_names'] = next(reader)
+            col_names = self._info['col_names']
+            if len(self._info["col_names"]) != 4:
+                print('id', self._info['id'])
+                print('type', self._info['type'])
+                print('col_names', col_names)
+                raise ValueError("not enough columns in col_names")
             data = {col_names[0]: [], col_names[1]: [], col_names[2]: [], col_names[3]: []}
             for line in reader:
-                for index in range(0, col_names - 1):
-                    data[col_names[index]].append(line[index])
+                for index in range(0, len(col_names) - 1):
+                    if line[index] is not None:
+                        data[col_names[index]].append(line[index])
             self._info['data'] = data

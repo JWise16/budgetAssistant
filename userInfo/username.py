@@ -7,7 +7,7 @@ functions that work with usernameInfo.txt
 """
 
 
-def createUsername(securityID: str, filePath: str = 'userInfo/singleValue/infoData/usernameInfo.csv') -> object:
+def createUsername(securityID: str, filePath: str = '../userInfo/singleValue/infoData/usernameInfo.csv') -> object:
     """
     creates a SingleValue object for a username from an exiting username
     data file
@@ -23,7 +23,7 @@ def createUsername(securityID: str, filePath: str = 'userInfo/singleValue/infoDa
 
 
 def createNewUsername(securityID: str, username: str,
-                      filePath: str = 'userInfo/singleValue/infoData/usernameInfo.csv') -> Optional[
+                      filePath: str = '../userInfo/singleValue/infoData/usernameInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleVale object for a username and creates a new
@@ -46,7 +46,7 @@ def getUsername(securityID: str, singlevalue: SingleValue) -> str:
     :param singlevalue: SingleValue for the username
     :return: the username
     """
-    return str(singlevalue.data(securityID))
+    return str(singlevalue._data(securityID))
 
 
 def changeUsername(securityID: str, newUsername: str, singlevalue: SingleValue) -> None:
@@ -57,4 +57,4 @@ def changeUsername(securityID: str, newUsername: str, singlevalue: SingleValue) 
     :param singlevalue: SingleValue for the username
     :return: None
     """
-    singlevalue.changeInfo(securityID, 'data', newUsername)
+    singlevalue._changeInfo(securityID, 'data', newUsername)

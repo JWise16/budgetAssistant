@@ -7,7 +7,7 @@ functions that work with passwordInfo.txt
 """
 
 
-def createPassword(securityID: str, filePath: str = 'userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
+def createPassword(securityID: str, filePath: str = '../userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleValue object for a password from an exiting password
@@ -24,7 +24,7 @@ def createPassword(securityID: str, filePath: str = 'userInfo/singleValue/infoDa
 
 
 def createNewPassword(securityID: str, password: str,
-                      filePath: str = 'userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
+                      filePath: str = '../userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleVale object for a password and creates a new
@@ -47,7 +47,7 @@ def getPassword(securityID: str, singlevalue: SingleValue) -> str:
     :param singlevalue: SingleValue for the password
     :return: the password
     """
-    return str(singlevalue.data(securityID))
+    return str(singlevalue._data(securityID))
 
 
 def changePassword(securityID: str, newPassword: str, singlevalue: SingleValue) -> None:
@@ -58,4 +58,4 @@ def changePassword(securityID: str, newPassword: str, singlevalue: SingleValue) 
     :param singlevalue: SingleValue for the password
     :return: None
     """
-    singlevalue.changeInfo(securityID, 'data', newPassword)
+    singlevalue._changeInfo(securityID, 'data', newPassword)

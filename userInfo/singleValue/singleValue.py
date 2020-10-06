@@ -1,4 +1,4 @@
-from os import remove
+from os import remove, getcwd
 import csv
 
 
@@ -27,7 +27,7 @@ class SingleValue:
             self._info = dict(id=id, path=str(path), type=str(storage), data=dat)
             f.close()
 
-    def path(self, securityID: str) -> str:
+    def _path(self, securityID: str) -> str:
         """
         :param securityID: users ID
         :return: path to data file
@@ -36,7 +36,7 @@ class SingleValue:
             self.idCheck(securityID)
         return self._info['path']
 
-    def type(self, securityID: str) -> str:
+    def _type(self, securityID: str) -> str:
         """
         :param securityID:  users ID
         :return: what type of data SingleValue holds
@@ -45,7 +45,7 @@ class SingleValue:
             self.idCheck(securityID)
         return self._info['type']
 
-    def data(self, securityID: str) -> object:
+    def _data(self, securityID: str) -> object:
         """
         :param securityID: users ID
         :return: the data SingleValue holds
@@ -54,7 +54,7 @@ class SingleValue:
             self.idCheck(securityID)
         return self._info['data']
 
-    def changeInfo(self, securityID, tag, newData) -> None:
+    def _changeInfo(self, securityID, tag, newData) -> None:
         """
         This function changes the information in the "self._info" tree... Does not change the actual data file
         :param securityID: users ID
@@ -92,6 +92,7 @@ class SingleValue:
         :param data: the data the SingleValue holds
         :return: None
         """
+        print(getcwd())
         with open(path, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([securityID])

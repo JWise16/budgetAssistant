@@ -7,7 +7,7 @@ functions that work with savingsInfo.txt
 """
 
 
-def createSavings(securityID: str, file_path: str = 'userInfo/tableValue/tableData/savingsInfo.csv') -> Optional[
+def createSavings(securityID: str, file_path: str = '../userInfo/tableValue/tableData/savingsInfo.csv') -> Optional[
     TableValue]:
     """
     creates a TableValue object for a users savings from an exiting savings data table file
@@ -22,7 +22,7 @@ def createSavings(securityID: str, file_path: str = 'userInfo/tableValue/tableDa
         return None
 
 
-def createNewSavings(securityID: str, file_path: str = 'userInfo/tableValue/tableData/savingsInfo.txt') -> Optional[
+def createNewSavings(securityID: str, file_path: str = '../userInfo/tableValue/tableData/savingsInfo.csv') -> Optional[
     TableValue]:
     """
     creates a TableValue object for a users savings and creates a new
@@ -51,11 +51,11 @@ def addSavingsDeposit(table_value: TableValue, securityID: str, date: str, amoun
     :param tag: tags that group savings deposits together (default "N/A")
     :return: None
     """
-    table_value.addEntry(securityID, date, amount, reason, tag)
+    table_value._addEntry(securityID, date, amount, reason, tag)
 
 
 def editSavingsDeposit(table_value: TableValue, securityID: str, entry_index: int, column_name: str,
-                       new_data: int) -> None:
+                       new_data) -> None:
     """
     edits a single entry in a savings deposit
     :param table_value: TableValue object that stores the users savings information
@@ -65,7 +65,7 @@ def editSavingsDeposit(table_value: TableValue, securityID: str, entry_index: in
     :param new_data: new data to be inserted into the entry
     :return: None
     """
-    table_value.editEntry(securityID, entry_index, column_name, new_data)
+    table_value._editEntry(securityID, entry_index, column_name, new_data)
 
 
 def removeSavingsDeposit(table_value: TableValue, securityID: str, entry_index: int) -> None:
@@ -76,14 +76,15 @@ def removeSavingsDeposit(table_value: TableValue, securityID: str, entry_index: 
     :param entry_index: the index of the savings deposit to be removed
     :return: None
     """
-    table_value.removeEntry(securityID, entry_index)
+    table_value._removeEntry(securityID, entry_index)
 
 
-# work in progress
-def editSavingsHistory() -> None:
-    pass
-
-
-# work in progress
-def viewSavingsHistory() -> None:
-    pass
+def getSavingsData(table_value: TableValue, securityID: str) -> dict:
+    """
+    returns the data table which is a dictionary with column names as keys and lists that represent data entries
+    as values
+    :param table_value: TableValue object which contains the savings data
+    :param securityID: users security ID
+    :return: data table (Type dict)
+    """
+    return dict(table_value._data(securityID))

@@ -4,7 +4,7 @@ from typing import Optional
 from userInfo.singleValue.singleValue import SingleValue
 
 
-def createID(securityID: str, filePath: str = 'userInfo/singleValue/infoData/securityIDInfo.csv') -> Optional[
+def createID(securityID: str, filePath: str = '../userInfo/singleValue/infoData/securityIDInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleValue object for a ID from an exiting ID data file
@@ -19,7 +19,7 @@ def createID(securityID: str, filePath: str = 'userInfo/singleValue/infoData/sec
         return None
 
 
-def createNewID(filePath: str = 'infoData/securityIDInfo.csv') -> Optional[SingleValue]:
+def createNewID(filePath: str = '../userInfo/singleValue/infoData/securityIDInfo.csv') -> Optional[SingleValue]:
     """
     creates a SingleValue object for a ID and a new securityID and securityIDInfo
     data file
@@ -39,4 +39,4 @@ def getID(singlevalue: SingleValue) -> str:
     :param singlevalue: SingleValue for the id
     :return: the users id
     """
-    return str(singlevalue.data('securityID'))
+    return str(singlevalue._data('securityID'))

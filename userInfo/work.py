@@ -7,7 +7,7 @@ functions that work with savingsInfo.txt
 """
 
 
-def createWorkLog(securityID: str, file_path: str = 'userInfo/tableValue/tableData/workInfo.csv') -> Optional[
+def createWorkLog(securityID: str, file_path: str = '../userInfo/tableValue/tableData/workInfo.csv') -> Optional[
     TableValue]:
     """
     creates a TableValue object for a users work log from an exiting work log data table file
@@ -22,7 +22,7 @@ def createWorkLog(securityID: str, file_path: str = 'userInfo/tableValue/tableDa
         return None
 
 
-def createNewWorkLog(securityID: str, file_path: str = 'userInfo/tableValue/tableData/workInfo.csv') -> Optional[
+def createNewWorkLog(securityID: str, file_path: str = '../userInfo/tableValue/tableData/workInfo.csv') -> Optional[
     TableValue]:
     """
     creates a TableValue object for a users work log and creates a new
@@ -32,7 +32,7 @@ def createNewWorkLog(securityID: str, file_path: str = 'userInfo/tableValue/tabl
     :return: TableValue object for a users work log or call createWorkLog() if a data table file is already found
     """
     if not path.exists(file_path):
-        return TableValue(securityID, file_path, "Savings", True, "Deposit_amount", "Reason")
+        return TableValue(securityID, file_path, "Work", True, "Hours", "Dollars_per_hour")
     else:
         print('Data file already exists for the work log... calling createWorkLog()')
         createWorkLog(securityID, file_path)
@@ -51,7 +51,7 @@ def addShift(table_value: TableValue, securityID: str, date: str, hours: float, 
     :param tag: tags that group savings deposits together (default "N/A")
     :return: None
     """
-    table_value.addEntry(securityID, date, hours, dollars_per_hour, tag)
+    table_value._addEntry(securityID, date, hours, dollars_per_hour, tag)
 
 
 def editShift(table_value: TableValue, securityID: str, entry_index: int, column_name: str,
@@ -65,7 +65,7 @@ def editShift(table_value: TableValue, securityID: str, entry_index: int, column
     :param new_data: new data to be inserted into the entry
     :return: None
     """
-    table_value.editEntry(securityID, entry_index, column_name, new_data)
+    table_value._editEntry(securityID, entry_index, column_name, new_data)
 
 
 def removeShift(table_value: TableValue, securityID: str, entry_index: int) -> None:
@@ -76,4 +76,15 @@ def removeShift(table_value: TableValue, securityID: str, entry_index: int) -> N
     :param entry_index: the index of the savings deposit to be removed
     :return: None
     """
-    table_value.removeEntry(securityID, entry_index)
+    table_value._removeEntry(securityID, entry_index)
+
+
+def getWorkData(table_value: TableValue, securityID: str) -> dict:
+    """
+    returns the data table which is a dictionary with column names as keys and lists that represent data entries
+    as values
+    :param table_value: TableValue object which contains the work data
+    :param securityID: users security ID
+    :return: data table (Type dict)
+    """
+    return dict(table_value._data(securityID))
