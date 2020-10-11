@@ -20,6 +20,7 @@ def login() -> dict:
         new_password = input('Enter your new password: ')
         new_email = input('Enter your email: ')
         user_info = makeNewUserInfo(new_username, new_password, new_email)
-        print('Congratulations, your account has been created!\n')
+        print('Congratulations, your account has been created!')
 
+    print('\n\n\n\n')
     return user_info

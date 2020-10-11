@@ -7,7 +7,7 @@ functions that work with savingsInfo.txt
 """
 
 
-def createSavings(securityID: str, file_path: str = '../userInfo/tableValue/tableData/savingsInfo.csv') -> Optional[
+def loadSavings(securityID: str, file_path: str = '../userInfo/tableValue/tableData/savingsInfo.csv') -> Optional[
     TableValue]:
     """
     creates a TableValue object for a users savings from an exiting savings data table file
@@ -35,7 +35,7 @@ def createNewSavings(securityID: str, file_path: str = '../userInfo/tableValue/t
         return TableValue(securityID, file_path, "Savings", True, "Deposit_amount", "Reason")
     else:
         print('Data file already exists for savings... calling createSavings()')
-        createSavings(securityID, file_path)
+        loadSavings(securityID, file_path)
 
 
 def addSavingsDeposit(table_value: TableValue, securityID: str, date: str, amount: float, reason: str,

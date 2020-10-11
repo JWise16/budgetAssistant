@@ -6,8 +6,7 @@ from userInfo.singleValue.singleValue import SingleValue
 functions that work with passwordInfo.txt
 """
 
-
-def createPassword(securityID: str, filePath: str = '../userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
+def loadPassword(securityID: str, filePath: str = '../userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleValue object for a password from an exiting password
@@ -23,22 +22,22 @@ def createPassword(securityID: str, filePath: str = '../userInfo/singleValue/inf
         return None
 
 
-def createNewPassword(securityID: str, password: str,
+def createNewPassword(securityID: str, new_password: str,
                       filePath: str = '../userInfo/singleValue/infoData/passwordInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleVale object for a password and creates a new
     password data file
     :param securityID: users ID
-    :param password: the users password
+    :param new_password: the users password
     :param filePath: path to the password information file
-    :return: SingleValue object for a password or call createPassword() if a data file is already found
+    :return: SingleValue object for a password or call loadPassword() if a data file is already found
     """
     if not path.exists(filePath):
-        return SingleValue(securityID, filePath, 'password', password)
+        return SingleValue(securityID, filePath, 'password', new_password)
     else:
-        print('Data file already exists for password... calling createPassword()')
-        createPassword(securityID, filePath)
+        print('Data file already exists for password... calling loadPassword()')
+        loadPassword(securityID, filePath)
 
 
 def getPassword(securityID: str, singlevalue: SingleValue) -> str:
@@ -50,12 +49,12 @@ def getPassword(securityID: str, singlevalue: SingleValue) -> str:
     return str(singlevalue._data(securityID))
 
 
-def changePassword(securityID: str, newPassword: str, singlevalue: SingleValue) -> None:
+def changePassword(securityID: str, new_password: str, singlevalue: SingleValue) -> None:
     """
     changes the password
     :param securityID: users ID
-    :param newPassword: the new password
+    :param new_password: the new password
     :param singlevalue: SingleValue for the password
     :return: None
     """
-    singlevalue._changeInfo(securityID, 'data', newPassword)
+    singlevalue._changeInfo(securityID, 'data', new_password)

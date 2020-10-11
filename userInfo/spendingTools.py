@@ -7,7 +7,7 @@ functions that work with savingsInfo.txt
 """
 
 
-def createPurchaseHistory(securityID: str, file_path: str = '../userInfo/tableValue/tableData/purchaseInfo.csv') -> \
+def loadSpendingHistory(securityID: str, file_path: str = '../userInfo/tableValue/tableData/purchaseInfo.csv') -> \
         Optional[TableValue]:
     """
     creates a TableValue object for a users purchase history from an exiting purchase data table file
@@ -22,7 +22,7 @@ def createPurchaseHistory(securityID: str, file_path: str = '../userInfo/tableVa
         return None
 
 
-def createNewPurchaseHistory(securityID: str, file_path: str = '../userInfo/tableValue/tableData/purchaseInfo.csv') -> \
+def createNewSpendingHistory(securityID: str, file_path: str = '../userInfo/tableValue/tableData/purchaseInfo.csv') -> \
         Optional[TableValue]:
     """
     creates a TableValue object for a users purchase history and creates a new
@@ -36,7 +36,7 @@ def createNewPurchaseHistory(securityID: str, file_path: str = '../userInfo/tabl
         return TableValue(securityID, file_path, "Purchase", True, "Transaction_amount", "Reason")
     else:
         print('Data file already exists for the purchase information... calling createPurchaseHistory())')
-        createPurchaseHistory(securityID, file_path)
+        loadSpendingHistory(securityID, file_path)
 
 
 def addTransaction(table_value: TableValue, securityID: str, date: str, amount: float, reason: str,
@@ -80,7 +80,7 @@ def removeTransaction(table_value: TableValue, securityID: str, entry_index: int
     table_value._removeEntry(securityID, entry_index)
 
 
-def getPurchaseData(table_value: TableValue, securityID: str) -> dict:
+def getSpendingData(table_value: TableValue, securityID: str) -> dict:
     """
     returns the data table which is a dictionary with column names as keys and lists that represent data entries
     as values

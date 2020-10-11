@@ -7,7 +7,7 @@ functions that work with savingsInfo.txt
 """
 
 
-def createWorkLog(securityID: str, file_path: str = '../userInfo/tableValue/tableData/workInfo.csv') -> Optional[
+def loadWorkLog(securityID: str, file_path: str = '../userInfo/tableValue/tableData/workInfo.csv') -> Optional[
     TableValue]:
     """
     creates a TableValue object for a users work log from an exiting work log data table file
@@ -35,7 +35,7 @@ def createNewWorkLog(securityID: str, file_path: str = '../userInfo/tableValue/t
         return TableValue(securityID, file_path, "Work", True, "Hours", "Dollars_per_hour")
     else:
         print('Data file already exists for the work log... calling createWorkLog()')
-        createWorkLog(securityID, file_path)
+        loadWorkLog(securityID, file_path)
 
 
 def addShift(table_value: TableValue, securityID: str, date: str, hours: float, dollars_per_hour: float,

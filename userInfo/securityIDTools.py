@@ -4,7 +4,7 @@ from typing import Optional
 from userInfo.singleValue.singleValue import SingleValue
 
 
-def createID(securityID: str, filePath: str = '../userInfo/singleValue/infoData/securityIDInfo.csv') -> Optional[
+def loadID(securityID: str, filePath: str = '../userInfo/singleValue/infoData/securityIDInfo.csv') -> Optional[
     SingleValue]:
     """
     creates a SingleValue object for a ID from an exiting ID data file

@@ -7,7 +7,7 @@ functions that work with usernameInfo.txt
 """
 
 
-def createUsername(securityID: str, filePath: str = '../userInfo/singleValue/infoData/usernameInfo.csv') -> object:
+def loadUsername(securityID: str, filePath: str = '../userInfo/singleValue/infoData/usernameInfo.csv') -> object:
     """
     creates a SingleValue object for a username from an exiting username
     data file
@@ -37,7 +37,7 @@ def createNewUsername(securityID: str, username: str,
         return SingleValue(securityID, filePath, 'username', username)
     else:
         print('Data file already exists for  username... calling create username()')
-        createUsername(securityID, filePath)
+        loadUsername(securityID, filePath)
 
 
 def getUsername(securityID: str, singlevalue: SingleValue) -> str:

@@ -66,7 +66,8 @@ class TableValue(SingleValue):
         self.idCheck(securityID)
         self._info['data'][column][entryIndex] = newData
 
-    def _newDataTable(self, securityID: str, path: str, storage_type: str, column_name_one: str,
+    @staticmethod
+    def _newDataTable(securityID: str, path: str, storage_type: str, column_name_one: str,
                       column_name_two: str) -> None:
         """
         creates a new data table file

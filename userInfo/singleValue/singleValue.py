@@ -92,12 +92,23 @@ class SingleValue:
         :param data: the data the SingleValue holds
         :return: None
         """
-        print(getcwd())
         with open(path, 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow([securityID])
             writer.writerow([storage])
             writer.writerow([data])
+            f.close()
+
+    def writeDataFile(self) -> None:
+        """
+        writes SingleValue information into a data file
+        :return: None
+        """
+        with open(self._info['path'], 'w', newline='') as f:
+            writer = csv.writer(f)
+            writer.writerow(self._info['id'])
+            writer.writerow(self._info['path'])
+            writer.writerow(self._info['data'])
             f.close()
 
     def _removeDataFile(self, securityID) -> None:

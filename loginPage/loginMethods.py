@@ -1,5 +1,5 @@
 from os import path
-from userInfo import email, password, purchase, savings, securityID, username, work
+from userInfo import emailTools, passwordTools, spendingTools, savingsTools, securityIDTools, usernameTools, workTools
 import csv
 
 
@@ -62,23 +62,23 @@ def hasUserInfo() -> bool:
 
 def makeNewUserInfo(new_username: str, new_password: str, new_email: str) -> dict:
     user_info = dict()
-    user_info['ID'] = securityID.getID(securityID.createNewID())
-    user_info['Email'] = email.createNewEmail(user_info['ID'], new_email)
-    user_info['Password'] = password.createNewPassword(user_info['ID'], new_password)
-    user_info['Username'] = username.createNewUsername(user_info['ID'], new_username)
-    user_info['Purchase'] = purchase.createNewPurchaseHistory(user_info['ID'])
-    user_info['Work'] = work.createNewWorkLog(user_info['ID'])
-    user_info['Savings'] = savings.createNewSavings(user_info['ID'])
+    user_info['ID'] = securityIDTools.getID(securityIDTools.createNewID())
+    user_info['Email'] = emailTools.createNewEmail(user_info['ID'], new_email)
+    user_info['Password'] = passwordTools.createNewPassword(user_info['ID'], new_password)
+    user_info['Username'] = usernameTools.createNewUsername(user_info['ID'], new_username)
+    user_info['Purchase'] = spendingTools.createNewSpendingHistory(user_info['ID'])
+    user_info['Work'] = workTools.createNewWorkLog(user_info['ID'])
+    user_info['Savings'] = savingsTools.createNewSavings(user_info['ID'])
     return user_info
 
 
 def makeUserInfo() -> dict:
     user_info = dict()
-    user_info['ID'] = securityID.getID(securityID.createID("securityID"))
-    user_info['Email'] = email.createEmail(user_info['ID'])
-    user_info['Password'] = password.createPassword(user_info['ID'])
-    user_info['Username'] = username.createUsername(user_info['ID'])
-    user_info['Purchase'] = purchase.createPurchaseHistory(user_info['ID'])
-    user_info['Work'] = work.createWorkLog(user_info['ID'])
-    user_info['Savings'] = savings.createSavings(user_info['ID'])
+    user_info['ID'] = securityIDTools.getID(securityIDTools.loadID("securityID"))
+    user_info['Email'] = emailTools.createEmail(user_info['ID'])
+    user_info['Password'] = passwordTools.loadPassword(user_info['ID'])
+    user_info['Username'] = usernameTools.loadUsername(user_info['ID'])
+    user_info['Purchase'] = spendingTools.loadSpendingHistory(user_info['ID'])
+    user_info['Work'] = workTools.loadWorkLog(user_info['ID'])
+    user_info['Savings'] = savingsTools.loadSavings(user_info['ID'])
     return user_info
