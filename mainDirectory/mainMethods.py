@@ -1,4 +1,4 @@
-from userInfo import spendingTools, savingsTools, workTools
+from userInfo import spendingTools, savingsTools, workTools, usernameTools, passwordTools, emailTools
 from os import remove
 
 
@@ -10,7 +10,7 @@ def trackSpend(info: dict) -> None:
             "View transaction history (1)\nAdd a transaction (2)\nEdit a transaction (3)\nRemove a transaction (4)\n"))
         if option == 1:
             print("Bringing up the transaction history...")
-            spendingTools.getSpendingData(info['Purchase'], info['ID'])
+            spendingTools.printSpendingData(info['Purchase'], info['ID'])
         elif option == 2:
             print("Adding a transaction...")
             date = input("Date of transaction: ")
@@ -51,7 +51,7 @@ def trackWork(info: dict) -> None:
             "View work history (1)\nAdd a shift (2)\nEdit a shift (3)\nRemove a shift (4)\n"))
         if option == 1:
             print("Bringing up the work history...")
-            workTools.getWorkData(info['Work'], info['ID'])
+            workTools.printWorkData(info['Work'], info['ID'])
         elif option == 2:
             print("Adding a shift...")
             date = input("Date of shift: ")
@@ -92,7 +92,7 @@ def trackSave(info: dict) -> None:
             "View savings history (1)\nAdd a deposit (2)\nEdit a deposit (3)\nRemove a deposit (4)\n"))
         if option == 1:
             print("Bringing up the savings history...")
-            savingsTools.getSavingsData(info['Savings'], info['ID'])
+            savingsTools.printSavingsData(info['Savings'], info['ID'])
         elif option == 2:
             print("Adding a deposit...")
             date = input("Date of deposit: ")
@@ -126,7 +126,12 @@ def trackSave(info: dict) -> None:
 
 
 def writeInfo(user_info: dict) -> None:
-    user_info['ID']._write
+    user_info['Username'].writeDataFile()
+    user_info['Email'].writeDataFile()
+    user_info['Password'].writeDataFile()
+    user_info['Savings'].writeDataFile()
+    user_info['Work'].writeDataFile()
+    user_info['Spending'].writeDataFile()
 
 def removeInfoData() -> None:
     remove("../userInfo/singleValue/infoData/emailInfo.csv")

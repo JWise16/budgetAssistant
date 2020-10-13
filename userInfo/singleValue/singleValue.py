@@ -107,7 +107,7 @@ class SingleValue:
         with open(self._info['path'], 'w', newline='') as f:
             writer = csv.writer(f)
             writer.writerow(self._info['id'])
-            writer.writerow(self._info['path'])
+            writer.writerow(self._info['type'])
             writer.writerow(self._info['data'])
             f.close()
 

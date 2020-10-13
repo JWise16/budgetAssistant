@@ -89,8 +89,8 @@ class TableValue(SingleValue):
             writer.writerow(['Date', column_name_one, column_name_two, 'Tag'])
             f.close()
 
-    def _writeDataTable(self, securityID: str, path: str, type: str, column_name_one: str,
-                        column_name_two: str) -> None:
+    def writeDataTable(self, securityID: str, path: str, type: str, column_name_one: str,
+                       column_name_two: str) -> None:
         """
         writes a data table to a file, can be used to "update" a existing data table file
         :param securityID: users security ID

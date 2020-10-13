@@ -88,3 +88,17 @@ def getWorkData(table_value: TableValue, securityID: str) -> dict:
     :return: data table (Type dict)
     """
     return dict(table_value._data(securityID))
+
+
+def printWorkData(work: TableValue, securityID: str) -> None:
+    """
+    prints the savings data into the console
+    :param work: TableValue object that holds that savings data
+    :param securityID: users security ID
+    :return: None
+    """
+    print("Savings")
+    print("Date    Hours    Dollars_per_hour    Tag")
+    data = getWorkData(work, securityID)
+    for i in range(0, len(data['Date']) - 1):
+        print(data['Date'][i], data['Hours'][i], data['Dollars_per_hour'][i], data["Tag"][i])

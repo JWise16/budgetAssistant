@@ -79,7 +79,7 @@ def removeSavingsDeposit(table_value: TableValue, securityID: str, entry_index: 
     table_value._removeEntry(securityID, entry_index)
 
 
-def getSavingsData(table_value: TableValue, securityID: str) -> dict:
+def getSavingsData(savings: TableValue, securityID: str) -> dict:
     """
     returns the data table which is a dictionary with column names as keys and lists that represent data entries
     as values
@@ -87,4 +87,18 @@ def getSavingsData(table_value: TableValue, securityID: str) -> dict:
     :param securityID: users security ID
     :return: data table (Type dict)
     """
-    return dict(table_value._data(securityID))
+    return dict(savings._data(securityID))
+
+
+def printSavingsData(savings: TableValue, securityID: str) -> None:
+    """
+    prints the savings data into the console
+    :param savings: TableValue object that holds that savings data
+    :param securityID: users security ID
+    :return: None
+    """
+    print("Savings")
+    print("Date    Deposit_amount    Reason    Tag")
+    data = getSavingsData(savings, securityID)
+    for i in range(0, len(data['Date'])):
+        print(data['Date'][i], data['Deposit_amount'][i], data['Reason'][i], data["Tag"][i])

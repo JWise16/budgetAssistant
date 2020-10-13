@@ -22,8 +22,8 @@ t._editEntry("8416826", 0, "Column_one", "edited data0")
 
 input("Verify self._info['data'] data table looks all good. Press 'enter' to continue")
 input("Look at the data table in 'temporaryFile.csv'\nPress enter to load the new data table into 'temporaryFile.csv'")
-t._writeDataTable("8416826", 'userInfo/tableValue/tableData/temporaryFile.csv', 'TableValueStorage', 'Column_one',
-                  'Column_two')
+t.writeDataTable("8416826", 'userInfo/tableValue/tableData/temporaryFile.csv', 'TableValueStorage', 'Column_one',
+                 'Column_two')
 
 input("Verify all TableValue data is correct\nPress 'enter' to continue")
 print("Testing construction from the existing data table file")

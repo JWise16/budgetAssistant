@@ -89,3 +89,16 @@ def getSpendingData(table_value: TableValue, securityID: str) -> dict:
     :return: data table (Type dict)
     """
     return dict(table_value._data(securityID))
+
+def printSpendingData(spending: TableValue, securityID: str) -> None:
+    """
+    prints the spending data into the console
+    :param spending: TableValue object that holds that savings data
+    :param securityID: users security ID
+    :return: None
+    """
+    print("Savings")
+    print("Date    Transaction_amount    Reason    Tag")
+    data = getSpendingData(spending, securityID)
+    for i in range(0, len(data['Date'])):
+        print(data['Date'][i], data['Transaction_amount'][i], data['Reason'][i], data["Tag"][i])

@@ -7,7 +7,7 @@ functions that work with emailInfo.csv
 """
 
 
-def createEmail(securityID: str, filePath: str = '../userInfo/singleValue/infoData/emailInfo.csv') -> object:
+def loadEmail(securityID: str, filePath: str = '../userInfo/singleValue/infoData/emailInfo.csv') -> object:
     """
     creates a SingleValue object for a email from an exiting email
     data file

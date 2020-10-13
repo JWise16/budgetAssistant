@@ -21,6 +21,7 @@ while run:
             exit_loop = False
         elif cont == 'n':
             run = False
+            mainMethods.writeInfo(user_info)
             user_info['Username'].terminateProgram("User selection to end program")
         else:
             print("Input not recognized, please try again")
